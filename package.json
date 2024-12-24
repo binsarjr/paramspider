@@ -2,6 +2,9 @@
   "name": "paramspider",
   "module": "index.ts",
   "type": "module",
+  "bin": {
+    "paramspider": "index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
@@ -13,3 +16,4 @@
     "https-proxy-agent": "^7.0.6"
   }
 }
+

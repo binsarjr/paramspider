@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import { program } from "commander";
 import * as fs from "fs";
 import { join } from "path";
