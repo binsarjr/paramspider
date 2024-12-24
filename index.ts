@@ -38,7 +38,7 @@ function hasExtention(url: string, extentions: string[]) {
 	const parsedUrl = new URL(url);
 	const ext = parsedUrl.pathname.split(".").pop();
 
-	return ext && extentions.includes(ext.toLowerCase());
+	return ext && extentions.includes("." + ext.toLowerCase());
 }
 
 function cleanHostname(url: string) {
