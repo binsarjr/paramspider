@@ -1,6 +1,6 @@
-# Bun Parameter Spider
+# Parameter Spider
 
-Bun Parameter Spider is a powerful tool for discovering HTTP GET parameters in web applications. It leverages Web Archive (Wayback Machine) data to capture unique HTTP GET parameters from web applications. This ensures comprehensive discovery of historical parameters for analysis and testing.
+Parameter Spider is a powerful tool for discovering HTTP GET parameters in web applications. It leverages Web Archive (Wayback Machine) data to capture unique HTTP GET parameters from web applications. This ensures comprehensive discovery of historical parameters for analysis and testing.
 
 ![paramspider](./paramspider.png)
 
