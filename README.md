@@ -11,7 +11,7 @@ Parameter Spider is a powerful tool for discovering HTTP GET parameters in web a
 - Multi-domain support
 - Output results to a specified directory
 - Lightweight and easy to use
-- Flexible execution: via `bun link` or manual usage with `index.ts`
+- Flexible execution: via `bun link` or manual usage with `paramspider.ts`
 
 ---
 
@@ -49,12 +49,12 @@ Once linked globally, you can run the tool as:
 paramspider -d <domain1> <domain2> ... -l <domain_list_file> -o <output_directory>
 ```
 
-### Using `index.ts` Manually
+### Using `paramspider.ts` Manually
 
 Alternatively, you can run the tool directly with Bun:
 
 ```bash
-bun run index.ts -d <domain1> <domain2> ... -l <domain_list_file> -o <output_directory>
+bun run paramspider.ts -d <domain1> <domain2> ... -l <domain_list_file> -o <output_directory>
 ```
 
 ### Arguments
@@ -76,10 +76,10 @@ Options:
 paramspider -d example.com domainku.com -l domainlist.txt -o output_dir/result
 ```
 
-#### Using `index.ts`
+#### Using `paramspider.ts`
 
 ```bash
-bun run index.ts -d example.com domainku.com -l domainlist.txt -o output_dir/result
+bun run paramspider.ts -d example.com domainku.com -l domainlist.txt -o output_dir/result
 ```
 
 This command crawls `example.com` and `domainku.com`, reads additional domains from `domainlist.txt`, and saves the results in the `output_dir/result` directory.
