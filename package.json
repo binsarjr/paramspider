@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "bin": {
-    "paramspider": "index.ts"
+    "paramspider": "index.ts",
+    "jcsparamspider": "index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
