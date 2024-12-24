@@ -6,6 +6,12 @@ import * as fs from "fs";
 import { join } from "path";
 import { fetchUrlContent, paramspiderText } from "./client";
 
+declare global {
+	var stream_output: boolean;
+}
+
+globalThis.stream_output = false;
+
 const HARDCODED_EXTENSIONS = [
 	".jpg",
 	".jpeg",
@@ -121,6 +127,7 @@ async function fetch_and_clean_urls(
 	);
 
 	const response = await fetchUrlContent(wayback_uri);
+
 	const urls = response.split("\n");
 
 	const cleaned_urls = cleanUrls(urls, extensions, placeholder);
@@ -129,7 +136,7 @@ async function fetch_and_clean_urls(
 		"[" +
 			chalk.green("INFO") +
 			"] Found " +
-			chalk.blue(urls.length) +
+			chalk.blue(cleaned_urls.length) +
 			" URLS for " +
 			chalk.green(domain) +
 			"..."
@@ -144,17 +151,29 @@ async function fetch_and_clean_urls(
 
 	const fileStream = fs.createWriteStream(resultFile, { flags: "w" });
 
+	console.log(
+		"[" +
+			chalk.green("INFO") +
+			"] Extracting URLS with parameters from " +
+			chalk.green(domain) +
+			"..."
+	);
 	cleaned_urls.forEach((url) => {
 		if (url.includes("?")) {
 			fileStream.write(url + "\n");
-			// Uncomment the following lines if stream_output is defined and you want to log the output
-			// if (stream_output) {
-			//   console.log(url);
-			// }
+			if (globalThis.stream_output) {
+				console.log("[" + chalk.blue("FOUND") + "] " + url);
+			}
 		}
 	});
 
 	fileStream.end();
+	console.log(
+		"[" +
+			chalk.green("INFO") +
+			"] Saved cleaned urls to " +
+			chalk.blue(resultFile)
+	);
 }
 
 console.log(paramspiderText);
@@ -169,6 +188,7 @@ const options = program
 		"Placeholder to replace query parameters",
 		"FUZZ"
 	)
+	.option("-s, --stream", "Stream output to console", false)
 	.parse(process.argv)
 	.opts();
 
@@ -205,6 +225,8 @@ if (options.list) {
 		});
 	});
 }
+
+globalThis.stream_output = options.stream;
 
 for (const domain of domains) {
 	await fetch_and_clean_urls(domain, HARDCODED_EXTENSIONS, options.placeholder);
