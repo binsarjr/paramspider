@@ -50,3 +50,5 @@ export async function fetchUrlContent(url: RequestInfo | URL) {
 	console.error(`Failed to fetch URL ${url} after ${MAX_RETRIES} retries.`);
 	process.exit(1);
 }
+
+export const paramspiderText: any = await Bun.file("./asci.txt").text();

@@ -3,7 +3,7 @@
 import { program } from "commander";
 import * as fs from "fs";
 import { join } from "path";
-import { fetchUrlContent } from "./client";
+import { fetchUrlContent, paramspiderText } from "./client";
 
 const HARDCODED_EXTENSIONS = [
 	".jpg",
@@ -138,6 +138,8 @@ async function fetch_and_clean_urls(
 
 	fileStream.end();
 }
+
+console.log(paramspiderText);
 
 const options = program
 	.option("-d, --domain <string...>", "Domain to crawl")
