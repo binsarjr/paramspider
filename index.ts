@@ -8,9 +8,11 @@ import { fetchUrlContent, paramspiderText } from "./client";
 
 declare global {
 	var stream_output: boolean;
+	var outputDir: string;
 }
 
 globalThis.stream_output = false;
+globalThis.outputDir = "./results";
 
 const HARDCODED_EXTENSIONS = [
 	".jpg",
@@ -142,12 +144,11 @@ async function fetch_and_clean_urls(
 			"..."
 	);
 
-	const results_dir = "./results";
-	if (!fs.existsSync(results_dir)) {
-		fs.mkdirSync(results_dir);
+	if (!fs.existsSync(globalThis.outputDir)) {
+		fs.mkdirSync(globalThis.outputDir);
 	}
 
-	const resultFile = join(results_dir, `${cleanHostname(domain)}.txt`);
+	const resultFile = join(globalThis.outputDir, `${cleanHostname(domain)}.txt`);
 
 	const fileStream = fs.createWriteStream(resultFile, { flags: "w" });
 
@@ -188,7 +189,7 @@ const options = program
 		"Placeholder to replace query parameters",
 		"FUZZ"
 	)
-	.option("-s, --stream", "Stream output to console", false)
+	.option("-o, --output-dir <string>", "Output directory", globalThis.outputDir)
 	.parse(process.argv)
 	.opts();
 
@@ -198,14 +199,15 @@ if (!(options.domain || options.list)) {
 
 const domains = new Set<string>();
 
-options.domain.map((domain: string) => {
-	const hostname = cleanHostname(domain);
-	if (!hostname) {
-		console.warn(`Error parsing URL ${domain}. Skipping...`);
-		return;
-	}
-	domains.add(hostname);
-});
+if (options.domain)
+	options.domain.map((domain: string) => {
+		const hostname = cleanHostname(domain);
+		if (!hostname) {
+			console.warn(`Error parsing URL ${domain}. Skipping...`);
+			return;
+		}
+		domains.add(hostname);
+	});
 
 if (options.list) {
 	await options.list.map(async (filepath: string) => {
@@ -228,6 +230,12 @@ if (options.list) {
 
 globalThis.stream_output = options.stream;
 
-for (const domain of domains) {
-	await fetch_and_clean_urls(domain, HARDCODED_EXTENSIONS, options.placeholder);
-}
+await Promise.all(
+	Array.from(domains).map(async (domain) => {
+		await fetch_and_clean_urls(
+			domain,
+			HARDCODED_EXTENSIONS,
+			options.placeholder
+		);
+	})
+);
