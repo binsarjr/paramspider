@@ -54,5 +54,5 @@ export async function fetchUrlContent(url: RequestInfo | URL) {
 }
 
 export const paramspiderText: any = chalk.bold.blue(
-	await Bun.file("./asci.txt").text()
+	await Bun.file(import.meta.dir + "/asci.txt").text()
 );
