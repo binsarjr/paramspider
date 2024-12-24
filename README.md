@@ -98,10 +98,3 @@ The tool generates:
 ## Contributing
 
 Feel free to contribute to the project by submitting pull requests or reporting issues. Make sure to follow the standard coding guidelines and include detailed descriptions in your contributions.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
