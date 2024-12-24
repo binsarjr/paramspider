@@ -159,6 +159,8 @@ async function fetch_and_clean_urls(
 
 console.log(paramspiderText);
 
+program.name("paramspider");
+
 const options = program
 	.option("-d, --domain <string...>", "Domain to crawl")
 	.option("-l, --list <list...>", "List of domains to crawl")
