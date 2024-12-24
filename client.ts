@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 const { randomInt } = require("crypto");
 
 const MAX_RETRIES = 3;
@@ -51,4 +53,6 @@ export async function fetchUrlContent(url: RequestInfo | URL) {
 	process.exit(1);
 }
 
-export const paramspiderText: any = await Bun.file("./asci.txt").text();
+export const paramspiderText: any = chalk.bold.blue(
+	await Bun.file("./asci.txt").text()
+);

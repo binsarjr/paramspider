@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 
+import chalk from "chalk";
 import { program } from "commander";
 import * as fs from "fs";
 import { join } from "path";
@@ -110,12 +111,29 @@ async function fetch_and_clean_urls(
 	placeholder: string = "FUZZ"
 ) {
 	const wayback_uri = `https://web.archive.org/cdx/search/cdx?url=${domain}/*&output=txt&collapse=urlkey&fl=original&page=/`;
-	console.log("okei", wayback_uri);
+
+	console.log(
+		"[" +
+			chalk.green("INFO") +
+			"] Fetching URLs from " +
+			chalk.green(domain) +
+			"..."
+	);
+
 	const response = await fetchUrlContent(wayback_uri);
-	console.log("sip");
 	const urls = response.split("\n");
 
 	const cleaned_urls = cleanUrls(urls, extensions, placeholder);
+
+	console.log(
+		"[" +
+			chalk.green("INFO") +
+			"] Found " +
+			chalk.blue(urls.length) +
+			" URLS for " +
+			chalk.green(domain) +
+			"..."
+	);
 
 	const results_dir = "./results";
 	if (!fs.existsSync(results_dir)) {
