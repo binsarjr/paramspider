@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { join } from "path";
 
 const { randomInt } = require("crypto");
 
@@ -54,5 +55,5 @@ export async function fetchUrlContent(url: RequestInfo | URL) {
 }
 
 export const paramspiderText: any = chalk.bold.blue(
-	await Bun.file(import.meta.dir + "/asci.txt").text()
+	await Bun.file(join(import.meta.dir, "asci.txt")).text()
 );
