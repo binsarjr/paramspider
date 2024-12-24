@@ -9,6 +9,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "commander": "^12.1.0",
     "https-proxy-agent": "^7.0.6"
   }
 }
